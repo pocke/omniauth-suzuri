@@ -28,6 +28,14 @@ module OmniAuth
       def callback_url
         full_host + script_name + callback_path
       end
+
+      def authorize_params
+        super.tap do |params|
+          if request.params['scope']
+            params[:scope] = request.params['scope']
+          end
+        end
+      end
     end
   end
 end
